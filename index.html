@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Undangan Ulang Tahun - Winda Tri Oktaria</title>
+  <!-- Google Fonts: Great Vibes, Alex Brush, Playfair Display & Nunito -->
+  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Fredoka+One&family=Great+Vibes&family=Nunito:wght@400;600;700;800&family=Playfair+Display:ital,wght@0,600;1,400;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <style>
+    :root {
+      --blue-primary: #0284c7;
+      --blue-dark: #0369a1;
+      --blue-soft: #bae6fd;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Nunito', sans-serif;
+    }
+
+    /* Background Luar */
+    body {
+      background-color: #dbeafe;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
+    }
+
+    /* CONTAINER KARTU UTAMA UKURAN HP */
+    .container {
+      width: 100%;
+      max-width: 390px;
+      min-height: 660px;
+      
+      /* Background gambar kamu */
+      background: url('bg-undangan.jpeg') no-repeat center center;
+      background-size: cover;
+      
+      border-radius: 30px;
+      box-shadow: 0 15px 35px rgba(2, 132, 199, 0.25);
+      border: 4px solid #ffffff;
+      padding: 30px 18px 25px 18px;
+      position: relative;
+      overflow-y: auto;
+      max-height: 92vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /* SISTEM SLIDE DENGAN ANIMASI MASUK DARI BAWAH (0.8s) */
+    .step {
+      display: none;
+      position: relative;
+      z-index: 10;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .step.active {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      animation: slideFromBottom 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
+
+    @keyframes slideFromBottom {
+      0% {
+        opacity: 0;
+        transform: translateY(25px);
+        filter: blur(3px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0px);
+      }
+    }
+
+    /* ================= TAMPILAN SLIDE 1 ================= */
+    .slide-1-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 20px 10px;
+      color: #0369a1;
+      text-shadow: 0 2px 4px rgba(255, 255, 255, 0.9);
+    }
+
+    .sub-invitation {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      color: #0284c7;
+      margin-bottom: 5px;
+    }
+
+    .main-script-title {
+      font-family: 'Alex Brush', 'Great Vibes', cursive;
+      font-size: 3.3rem;
+      line-height: 1.15;
+      color: #0369a1;
+      margin-bottom: 35px;
+      padding: 0 5px;
+      word-spacing: 2px;
+    }
+
+    .dear-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: #475569;
+      margin-bottom: 4px;
+    }
+
+    .guest-name-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.55rem;
+      font-weight: 700;
+      color: #0369a1;
+      margin-bottom: 35px;
+    }
+
+    /* Tombol Open Invitation Oval Kapsul */
+    .btn-open-invitation {
+      background: linear-gradient(135deg, #38bdf8, #0284c7);
+      color: white;
+      border: 2px solid #ffffff;
+      padding: 12px 35px;
+      border-radius: 30px;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(2, 132, 199, 0.35);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-open-invitation:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 25px rgba(2, 132, 199, 0.45);
+    }
+
+    /* ================= KOTAK PUTIH TRANSPARAN (SLIDE 2, 3, 4) ================= */
+    .card-box {
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 24px;
+      padding: 20px 14px;
+      border: 1.5px solid rgba(255, 255, 255, 0.85);
+      box-shadow: 0 8px 24px rgba(2, 132, 199, 0.12);
+      text-align: center;
+    }
+
+    .sub-celebrate {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.95rem;
+      font-style: italic;
+      color: #0284c7;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    .title-name {
+      font-family: 'Alex Brush', cursive;
+      font-size: 3.2rem;
+      color: #0284c7;
+      font-weight: bold;
+      line-height: 1.1;
+      margin-bottom: 12px;
+      text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.9);
+    }
+
+    .subtitle {
+      font-size: 0.85rem;
+      color: #334155;
+      line-height: 1.4;
+      font-weight: 600;
+    }
+
+    /* Tombol Navigasi Umum */
+    .btn-action {
+      background: linear-gradient(135deg, #38bdf8, #0284c7);
+      color: white;
+      border: none;
+      width: 100%;
+      padding: 12px;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(2, 132, 199, 0.3);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-decoration: none;
+      transition: transform 0.3s ease;
+    }
+
+    .btn-action:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.85);
+      color: #0284c7;
+      border: 1.5px solid #38bdf8;
+      box-shadow: none;
+    }
+
+    /* GALERI POLAROID PRESISI & SERAGAM (SLIDE 3) */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .polaroid {
+      background: rgba(255, 255, 255, 0.92);
+      padding: 8px 8px 10px 8px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.3s ease;
+    }
+
+    .polaroid:hover {
+      transform: scale(1.03);
+    }
+
+    .polaroid img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .polaroid-caption {
+      font-size: 0.78rem;
+      color: #475569;
+      margin-top: 6px;
+      font-weight: 700;
+    }
+
+    /* ELEMEN DRESSCODE TULISAN TEKS */
+    .dresscode-box {
+      margin-top: 10px;
+      background: rgba(240, 249, 255, 0.75);
+      border: 1px solid rgba(186, 230, 253, 0.8);
+      padding: 8px 12px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .dresscode-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #0284c7;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .dresscode-text {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #0369a1;
+    }
+
+    /* Tombol Musik Melayang */
+    .music-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #38bdf8;
+      color: white;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.4);
+      cursor: pointer;
+      z-index: 99;
+      border: 2px solid white;
+      font-size: 1.1rem;
+    }
+
+    /* Countdown Grid */
+    .countdown-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      margin-top: 10px;
+    }
+
+    .time-box {
+      background: rgba(240, 249, 255, 0.75);
+      border: 1px solid rgba(186, 230, 253, 0.8);
+      padding: 8px 4px;
+      border-radius: 12px;
+    }
+
+    .time-val {
+      font-family: 'Fredoka One', cursive;
+      font-size: 1.1rem;
+      color: #0284c7;
+    }
+
+    .time-lbl {
+      font-size: 0.65rem;
+      color: #64748b;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    /* Info List Waktu & Tempat */
+    .info-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      text-align: left;
+      margin-bottom: 12px;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(248, 250, 252, 0.75);
+      padding: 8px 10px;
+      border-radius: 12px;
+    }
+
+    .info-icon {
+      width: 32px;
+      height: 32px;
+      background: #bae6fd;
+      color: #0284c7;
+      border-radius: 8px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 0.95rem;
+      flex-shrink: 0;
+    }
+
+    /* Form RSVP (Slide 4) */
+    .form-group {
+      margin-bottom: 10px;
+      text-align: left;
+    }
+
+    .form-group label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #475569;
+      margin-bottom: 3px;
+      display: block;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 8px 10px;
+      background: rgba(255, 255, 255, 0.85);
+      border: 1.5px solid #bae6fd;
+      border-radius: 10px;
+      outline: none;
+      font-size: 0.85rem;
+    }
+
+    /* Modal Zoom Foto */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      z-index: 100;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .modal img {
+      max-width: 90%;
+      max-height: 80vh;
+      border-radius: 12px;
+      border: 3px solid white;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- PEMUTAR LAGU EXO - LUCKY (FORMAT MP4) -->
+  <audio id="bgMusic" loop preload="auto">
+    <source src="lucky-exo.mp4" type="audio/mp4">
+  </audio>
+
+  <!-- Tombol Musik Melayang -->
+  <div class="music-btn" id="musicToggle" onclick="toggleMusic()">
+    <i class="fa-solid fa-music"></i>
+  </div>
+
+  <!-- CONTAINER HP -->
+  <div class="container">
+
+    <!-- ==================== SLIDE 1 ==================== -->
+    <div class="step active" id="step1">
+      <div class="slide-1-content">
+        <div class="sub-invitation">You are invited to an</div>
+        
+        <h1 class="main-script-title">
+          Winda's<br>
+          birthday party<br>
+          sweet seventeen
+        </h1>
+
+        <div class="dear-text">Dear</div>
+        <div class="guest-name-title" id="guestNameHolder">Nama Tamu</div>
+
+        <button class="btn-open-invitation" onclick="goToStep(2)">
+          Open Invitation
+        </button>
+      </div>
+    </div>
+
+    <!-- ==================== SLIDE 2 ==================== -->
+    <div class="step" id="step2">
+      <div class="card-box">
+        <div class="sub-celebrate">Please join us to celebrate the 17th birthday of</div>
+        <h1 class="title-name">Winda Tri Oktaria</h1>
+        
+        <div class="countdown-grid">
+          <div class="time-box">
+            <div class="time-val" id="days">00</div>
+            <div class="time-lbl">Hari</div>
+          </div>
+          <div class="time-box">
+            <div class="time-val" id="hours">00</div>
+            <div class="time-lbl">Jam</div>
+          </div>
+          <div class="time-box">
+            <div class="time-val" id="minutes">00</div>
+            <div class="time-lbl">Menit</div>
+          </div>
+          <div class="time-box">
+            <div class="time-val" id="seconds">00</div>
+            <div class="time-lbl">Detik</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-box">
+        <h3 style="font-family: 'Fredoka One', cursive; color: #0284c7; font-size: 1.05rem; margin-bottom: 10px;">
+          <i class="fa-solid fa-calendar-heart"></i> Waktu & Lokasi
+        </h3>
+
+        <div class="info-list">
+          <div class="info-item">
+            <div class="info-icon"><i class="fa-regular fa-calendar-check"></i></div>
+            <div>
+              <div style="font-weight: 700; font-size: 0.85rem;">Tanggal</div>
+              <div style="font-size: 0.75rem; color: #475569;">Minggu, 18 Oktober 2026</div>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <div class="info-icon"><i class="fa-regular fa-clock"></i></div>
+            <div>
+              <div style="font-weight: 700; font-size: 0.85rem;">Waktu</div>
+              <div style="font-size: 0.75rem; color: #475569;">10:00 WIB - Selesai</div>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <div class="info-icon"><i class="fa-solid fa-location-dot"></i></div>
+            <div>
+              <div style="font-weight: 700; font-size: 0.85rem;">Lokasi</div>
+              <div style="font-size: 0.75rem; color: #475569;">Jl. Padat Karya Kampung Bayur Gg Puskesmas</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Elemen Dresscode Tulisan Teks -->
+        <div class="dresscode-box">
+          <div class="dresscode-title"><i class="fa-solid fa-shirt"></i> Dresscode:</div>
+          <div class="dresscode-text">Biru Muda & Putih</div>
+        </div>
+
+        <a href="https://maps.google.com/?q=Jl.+Padat+Karya+Kampung+Bayur+Gg+Puskesmas" target="_blank" class="btn-action" style="margin-top: 10px; margin-bottom: 10px;">
+          <i class="fa-solid fa-map-location-dot"></i> Petunjuk Google Maps
+        </a>
+
+        <!-- Tombol "The birthday girl 📸" -->
+        <button class="btn-action" onclick="goToStep(3)">
+          The birthday girl 📸 <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- ==================== SLIDE 3 (FOTO LOKAL) ==================== -->
+    <div class="step" id="step3">
+      <div class="card-box">
+        <span class="badge-sub" style="background: rgba(224, 242, 254, 0.85); color: #0284c7; padding: 4px 12px; border-radius: 15px; font-weight: 700; font-size: 0.8rem; display: inline-block; margin-bottom: 8px;"> Photo Gallery ✨</span>
+        <!-- Judul "The birthday girl" -->
+        <h2 style="font-family: 'Fredoka One', cursive; color: #0284c7; font-size: 1.2rem;">The birthday girl</h2>
+        <p class="subtitle">Klik foto untuk memperbesar gambar!</p>
+
+        <div class="gallery-grid">
+          <div class="polaroid">
+            <img src="foto1.jpeg" alt="Foto Winda 1" onclick="openLightbox(this)">
+            <div class="polaroid-caption">Winda 🌸</div>
+          </div>
+          <div class="polaroid">
+            <img src="foto2.jpeg" alt="Foto Winda 2" onclick="openLightbox(this)">
+            <div class="polaroid-caption">Moments 💕</div>
+          </div>
+          <div class="polaroid">
+            <img src="foto3.jpeg" alt="Foto Winda 3" onclick="openLightbox(this)">
+            <div class="polaroid-caption">Birthday 🎂</div>
+          </div>
+          <div class="polaroid">
+            <img src="foto4.jpeg" alt="Foto Winda 4" onclick="openLightbox(this)">
+            <div class="polaroid-caption">Joy 🎈</div>
+          </div>
+        </div>
+
+        <button class="btn-action" style="margin-top: 15px;" onclick="goToStep(4)">
+          Isi Daftar Kehadiran (RSVP) 💌 <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- ==================== SLIDE 4 ==================== -->
+    <div class="step" id="step4">
+      <div class="card-box">
+        <span class="badge-sub" style="background: rgba(224, 242, 254, 0.85); color: #0284c7; padding: 4px 12px; border-radius: 15px; font-weight: 700; font-size: 0.8rem; display: inline-block; margin-bottom: 8px;"> Confirmation 💌</span>
+        <h3 style="font-family: 'Fredoka One', cursive; color: #0284c7; font-size: 1.15rem; margin-bottom: 10px;">
+          <i class="fa-solid fa-envelope-open-text"></i> RSVP Kehadiran
+        </h3>
+        <p class="subtitle" style="margin-bottom: 12px;">Mohon konfirmasi kehadiranmu di bawah ini ya!</p>
+
+        <form onsubmit="sendWhatsApp(event)">
+          <div class="form-group">
+            <label>Nama Lengkap</label>
+            <input type="text" id="guestName" class="form-control" placeholder="Masukkan namamu..." required>
+          </div>
+
+          <div class="form-group">
+            <label>Konfirmasi Kehadiran</label>
+            <select id="attendance" class="form-control" required>
+              <option value="Hadir">Akan Hadir 🎉</option>
+              <option value="Ragu-ragu">Ragu-ragu 🤔</option>
+              <option value="Tidak Hadir">Tidak Bisa Hadir 😔</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Pesan & Ucapan Selamat</label>
+            <textarea id="guestMessage" class="form-control" rows="3" placeholder="Tuliskan ucapan selamat ulang tahun untuk Winda..." required></textarea>
+          </div>
+
+          <button type="submit" class="btn-action" style="margin-bottom: 10px;">
+            <i class="fa-brands fa-whatsapp"></i> Kirim via WhatsApp
+          </button>
+        </form>
+
+        <button class="btn-action btn-secondary" onclick="goToStep(1)">
+          <i class="fa-solid fa-rotate-left"></i> Kembali ke Utama
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Modal Lightbox Preview Foto -->
+  <div class="modal" id="photoModal" onclick="closeLightbox()">
+    <img id="modalImg" src="" alt="Zoom Foto">
+  </div>
+
+  <script>
+    // Membaca Nama Tamu dari Link (?to=NamaTamu)
+    window.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const guestName = urlParams.get('to');
+
+      if (guestName) {
+        document.getElementById('guestNameHolder').innerText = decodeURIComponent(guestName);
+      }
+    });
+
+    // Manager Perpindahan Slide
+    function goToStep(stepNumber) {
+      document.querySelectorAll('.step').forEach(step => {
+        step.classList.remove('active');
+      });
+
+      const nextStep = document.getElementById(`step${stepNumber}`);
+      if (nextStep) {
+        nextStep.classList.add('active');
+      }
+
+      // Mainkan Musik & Confetti saat pertama kali Buka Undangan
+      if (stepNumber === 2) {
+        triggerConfetti();
+        if (!isPlaying) {
+          toggleMusic();
+        }
+      }
+
+      document.querySelector('.container').scrollTop = 0;
+    }
+
+    // Toggle Musik Latar
+    const bgMusic = document.getElementById('bgMusic');
+    const musicBtn = document.getElementById('musicToggle');
+    let isPlaying = false;
+
+    function toggleMusic() {
+      if (isPlaying) {
+        bgMusic.pause();
+        musicBtn.innerHTML = '<i class="fa-solid fa-music"></i>';
+      } else {
+        bgMusic.play().then(() => {
+          musicBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
+        }).catch(() => {});
+      }
+      isPlaying = !isPlaying;
+    }
+
+    // Efek Confetti
+    function triggerConfetti() {
+      confetti({
+        particleCount: 85,
+        spread: 75,
+        origin: { y: 0.6 },
+        colors: ['#38bdf8', '#bae6fd', '#7dd3fc', '#ffffff']
+      });
+    }
+
+    // Countdown Timer (18 Oktober)
+    const eventDate = new Date("October 18, 2026 10:00:00").getTime();
+
+    const countdown = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = eventDate - now;
+
+      if (distance < 0) {
+        clearInterval(countdown);
+        document.getElementById("days").innerText = "00";
+        document.getElementById("hours").innerText = "00";
+        document.getElementById("minutes").innerText = "00";
+        document.getElementById("seconds").innerText = "00";
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      document.getElementById("days").innerText = days < 10 ? '0' + days : days;
+      document.getElementById("hours").innerText = hours < 10 ? '0' + hours : hours;
+      document.getElementById("minutes").innerText = minutes < 10 ? '0' + minutes : minutes;
+      document.getElementById("seconds").innerText = seconds < 10 ? '0' + seconds : seconds;
+    }, 1000);
+
+    // Zoom Preview Foto
+    function openLightbox(imgElement) {
+      const modal = document.getElementById('photoModal');
+      const modalImg = document.getElementById('modalImg');
+      modal.style.display = 'flex';
+      modalImg.src = imgElement.src;
+    }
+
+    function closeLightbox() {
+      document.getElementById('photoModal').style.display = 'none';
+    }
+
+    // Kirim Ke WhatsApp
+    function sendWhatsApp(event) {
+      event.preventDefault();
+      
+      const phone = "6281234567890"; // Ubah dengan nomor WhatsApp Winda
+      
+      const name = document.getElementById("guestName").value;
+      const status = document.getElementById("attendance").value;
+      const message = document.getElementById("guestMessage").value;
+
+      const text = `Halo Winda! Saya *${name}* ingin mengonfirmasi *${status}* di acara ulang tahunmu pada 18 Oktober di Jl. Padat Karya Kampung Bayur Gg Puskesmas.%0A%0APesan: "${message}"`;
+      
+      window.open(`https://wa.me/${phone}?text=${text}`, '_blank');
+    }
+  </script>
+</body>
+</html>
